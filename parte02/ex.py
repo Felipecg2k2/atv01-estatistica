@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 dados = {
     "usuario": [1,2,3,4,5,6,7,8,9,10],
@@ -34,10 +35,51 @@ print('=========================================================================
 print('Questão 5')
 
 # Questão 5
-
+ 
 # A) Quantidade de usuários por sistema operacional
 print('\nQuantidade de usuários por sistema operacional:\n')
 print(df['sistema'].value_counts())
-
+ 
 # B) Percentual de usuários por sistema operacional
-
+print('\nPercentual de usuários por sistema operacional:\n')
+print(df['sistema'].value_counts(normalize=True) * 100)
+ 
+print('======================================================================================')
+print('Questão 6')
+ 
+# Questão 6
+ 
+# Gráfico de barras com a quantidade de usuários por sistema operacional
+contagem = df['sistema'].value_counts()
+ 
+plt.figure(figsize=(7, 5))
+plt.bar(contagem.index, contagem.values)
+plt.title('Quantidade de usuários por sistema operacional')
+plt.xlabel('Sistema operacional')
+plt.ylabel('Quantidade de usuários')
+plt.savefig('grafico_sistemas.png')
+plt.show()
+ 
+# Sistema operacional com maior frequência
+print(f'\nSistema operacional com maior frequência: {contagem.idxmax()} ({contagem.max()} usuários)')
+ 
+print('======================================================================================')
+print('Questão 7')
+ 
+# Questão 7
+ 
+tempo = df['tempo_ms']
+ 
+print(f'\nMédia: {tempo.mean()}')
+print(f'Mediana: {tempo.median()}')
+if tempo.value_counts().max() == 1:
+    print('Moda: não há moda (todos os valores aparecem apenas uma vez)')
+else:
+    print(f'Moda: {tempo.mode().tolist()}')
+print(f'Mínimo: {tempo.min()}')
+print(f'Máximo: {tempo.max()}')
+print(f'Amplitude: {tempo.max() - tempo.min()}')
+ 
+# A média (129.8) e a mediana (129.0) são muito próximas, o que indica que os dados são
+# simétricos, sem valores extremos puxando a média para cima ou para baixo.
+# Todos os valores aparecem uma única vez, então não há moda (conjunto amodal).
